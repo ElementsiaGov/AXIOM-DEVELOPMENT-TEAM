@@ -253,18 +253,27 @@
 #readMoreButton:hover {
     background-color: #334934; /* Darker background color on hover */
 }
+.sign-out {
+    color: #333;
+    text-decoration: none;
+    margin-left: 10px; /* Adjust margin as needed */
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 10px 10px 10px 10px;
+}
+
 
     </style>
 </head>
 <body>
-<header>
-    <h1>AXIOM</h1>
-    <div class="search-bar">
-        <input type="text" class="search-input" placeholder="Search..." oninput="filterNews()">
-
-        <i class="fas fa-search search-icon"></i>
-    </div>
-</header>
+    <header>
+        <h1>AXIOM</h1>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search..." oninput="filterNews()">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <a href="index.html" class="sign-out">Sign Out</a>
+    </header>
 <nav>
     <ul>
         <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
