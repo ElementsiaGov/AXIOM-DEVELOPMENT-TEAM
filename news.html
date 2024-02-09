@@ -66,12 +66,17 @@
         }
 
         .container {
-            width: 80%;
+            width: 97%;
             margin: auto;
             padding: 20px;
             overflow: hidden;
             position: relative;
             z-index: 1;
+            border-radius: 10px;
+            margin-top: 10px;
+            background-image: url(https://media.discordapp.net/attachments/1101785167233826846/1205543927713898516/e6a8c8cc35b3affd785b3bfbd9aa2e98.png?ex=65d8c146&is=65c64c46&hm=d872f155fcaa51dea1c54c66f9d4aa274f1be481ce46500db60023686704e151&=&format=webp&quality=lossless&width=295&height=578);
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    background-size: cover;
         }
 
         .portal {
@@ -154,14 +159,18 @@
         }
 
         .why-container {
-            display: flex;
-            justify-content: space-between; /* Distribute items evenly along the main axis */
-            margin: 0; /* Reset margin */
-            padding: 20px;
-            background-color: #8f9f8f; /* Optional: Add background color to container */
-            border-radius: 10px; /* Rounded corners */
-            overflow: hidden; /* Hide overflow to prevent content from protruding beyond rounded corners */
-        }
+    display: flex;
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+    margin: auto; /* Align container in the center horizontally */
+    padding: 20px;
+    background-color: #8f9f8f; /* Optional: Add background color to container */
+    border-radius: 15px; /* Rounded corners */
+    overflow: hidden; /* Hide overflow to prevent content from protruding beyond rounded corners */
+    margin-top: 5px;
+    width: 97%; /* Set a specific width for the container */
+    align-items: center;
+}
+
 
         .why-column {
             flex: 1; /* Distribute the available space equally among columns */
@@ -416,6 +425,8 @@
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="https://discord.gg/3Jca45mffG" class="discord-icon"><i class="fab fa-discord"></i></a>
+
         </div>
     </div>
 </footer>
