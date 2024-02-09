@@ -21,13 +21,14 @@
             position: relative;
         }
         .login-container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            position: relative;
-        }
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: 0 10px; /* Add margin left and right */
+    position: relative;
+}
         h2 {
             text-align: center;
         }
@@ -107,7 +108,7 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <p><b>THIS IS THE DEVELOPER SITE</b></p>
+        <p><b>THIS IS THE EARLY ACCESS, BUGS AND UNCOMPLETED SECTIONS ARE TO BE EXPECTED</b></p>
         <form id="loginForm" onsubmit="return validateLogin()">
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username" required><br><br>
