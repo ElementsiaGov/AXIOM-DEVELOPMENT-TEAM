@@ -342,11 +342,11 @@
 }
 .why-container {
     display: flex;
-    justify-content: space-between; /* Distribute items evenly along the main axis */
-    margin: auto; /* Align container in the center horizontally */
+    flex-direction: column; /* Columns will stack vertically */
+    margin: auto;
     padding: 20px;
-    background-color: #8f9f8f; /* Optional: Add background color to container */
-    border-radius: 15px; /* Rounded corners */
+    background-color: #8f9f8f;
+    border-radius: 15px;
     overflow: hidden;
     margin-top: 5px;
     width: 97%;
@@ -356,11 +356,9 @@
 .why-column {
     flex: 1;
     padding: 10px;
-            background-color: #677c5e;
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-            border-radius: 10px; /* Rounded corners */
-            margin-right: 5px;
+    background-color: #677c5e;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
     border-radius: 10px;
     margin-bottom: 10px;
     margin-right: 30px;
