@@ -41,7 +41,7 @@
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 50px;
             box-sizing: border-box;
         }
         button[type="submit"] {
@@ -50,11 +50,15 @@
             background-color: #488560;
             color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 50px;
             cursor: pointer;
+            transition: ease-in-out 0.3s;
+            font-weight: bold;
         }
         button[type="submit"]:hover {
             background-color: #3d6e51;
+            padding: 15px;
+            font-weight: bold;
         }
         .pass {
             display: none;
@@ -63,6 +67,29 @@
             color: rgb(0, 0, 0);
             text-decoration: none;
             cursor: pointer;
+            transition: ease-in-out 0.3s;
+        }
+        .forgot-password:hover {
+            padding: 5px;
+        }
+        .device-selection {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        .device-icon {
+            font-size: 30px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .device-icon:hover {
+            transform: scale(1.2);
+        }
+        .desktop-icon {
+            color: #303336; /* blue color */
+        }
+        .mobile-icon {
+            color: #303336; /* green color */
         }
         .discord-icon {
             position: absolute;
@@ -80,6 +107,7 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
+        <p><b>THIS IS THE DEVELOPER SITE</b></p>
         <form id="loginForm" onsubmit="return validateLogin()">
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username" required><br><br>
@@ -87,17 +115,25 @@
             <label for="pin">PIN:</label><br>
             <input type="password" id="pin" name="pin" required><br><br>
 
+            <div class="device-selection">
+                <i class="fas fa-desktop device-icon desktop-icon" onclick="selectDevice('desktop')"></i>
+                <i class="fas fa-mobile-alt device-icon mobile-icon" onclick="selectDevice('mobile')"></i>
+            </div>
+
             <button type="submit">Login</button>
         </form>
         <p class="pass" id="forgotPasswordText">If you don't have an account name or password, or if you've forgotten your password, please check your direct messages for the information sent by Elementsia, or make a submission in the Axiom submission page.</p>
         <p class="forgot-password" id="forgotPasswordLink">Forgot Password?</p>
     </div>
+    
     <a href="https://discord.gg/3Jca45mffG" class="discord-icon"><i class="fab fa-discord fa-2x"></i></a> <!-- Font Awesome Discord icon -->
     
     <script>
         var userAccounts = {
-            "Maggie": "KFC",
+            "Shantara": "7532",
             "El": "2421",
+            "EARLY ACCESS ACCOUNT 03": "5328",
+            "EARLY ACCESS ACCOUNT 02": "7972",
         };
 
         var passParagraph = document.getElementById("forgotPasswordText");
@@ -107,13 +143,31 @@
             passParagraph.style.display = passParagraph.style.display === "none" ? "block" : "none";
         });
 
+        function selectDevice(device) {
+            document.querySelectorAll('.device-icon').forEach(icon => {
+                icon.classList.remove('desktop-icon');
+                icon.classList.remove('mobile-icon');
+            });
+
+            if (device === 'desktop') {
+                document.querySelector('.desktop-icon').classList.add('desktop-icon');
+            } else if (device === 'mobile') {
+                document.querySelector('.mobile-icon').classList.add('mobile-icon');
+            }
+        }
+
         function validateLogin() {
             var username = document.getElementById("username").value;
             var pin = document.getElementById("pin").value;
+            var selectedDevice = document.querySelector('.desktop-icon') ? 'desktop' : 'mobile';
 
             if (userAccounts.hasOwnProperty(username)) {
                 if (userAccounts[username] === pin) {
-                    window.location.href = "news.html";
+                    if (selectedDevice === "desktop") {
+                        window.location.href = "news.html";
+                    } else if (selectedDevice === "mobile") {
+                        window.location.href = "news.html";
+                    }
                     return false;
                 } else {
                     alert("Incorrect PIN. Please try again.");
