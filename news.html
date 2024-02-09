@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1101785167233826846/1205444370237489162/Untitled_design_9.png?ex=65d8648d&is=65c5ef8d&hm=e6329b6795ed55fccb00a9b0bdc0db47ce22bdabf9ac3e728558e468fb09706f&=&format=webp&quality=lossless&width=80&height=80" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            animation: fadeIn 1s ease forwards; /* Apply fadeIn animation to the body */
+        }
+
+        header {
+            background-color: #5a754d;
+            color: #fff;
+            padding: 10px;
+            text-align: left; /* Align text to the left */
+            position: relative;
+            z-index: 2;
+            display: flex; /* Enable flex layout */
+            justify-content: space-between; /* Align items with space between */
+            align-items: center; /* Center align vertically */
+        }
+
+        nav {
+            background-color: #4a603e;
+            color: #fff;
+            padding: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            transition: max-height 0.5s ease; /* Smooth transition for max-height */
+            display: flex; /* Display menu items horizontally */
+            justify-content: center; /* Center align menu items horizontally */
+            align-items: center; /* Center align menu items vertically */
+            margin-top: 10px;
+        }
+
+        nav ul li {
+            display: block;
+            margin: 10px;
+            transition: transform 0.5s ease; /* Smooth transition for transform */
+            transform: translateY(-100%); /* Initially, move menu items up */
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center; /* Center align icon and text vertically */
+        }
+
+        nav ul li a i {
+            margin-right: 5px; /* Add spacing between icon and text */
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portal {
+            width: calc(20% - 20px); /* Adjust width as needed for spacing */
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            float: left;
+            transition: transform 0.3s ease; /* Add transition for smooth animation */
+        }
+
+        .portal:nth-child(5n+1) {
+            clear: both; /* Clear floats for every fifth portal */
+        }
+
+        .portal:hover {
+            transform: translateY(-5px); /* Move the element up slightly on hover */
+        }
+
+        .portal-image {
+            width: 100%;
+            height: 200px; /* Adjust height as needed */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .portal-content {
+            padding: 10px;
+        }
+
+        .portal-title {
+            font-size: 18px; /* Adjust font size as needed */
+            margin-bottom: 5px;
+        }
+
+        .portal-description {
+            font-size: 14px; /* Adjust font size as needed */
+            color: #666;
+        }
+
+        .image-container {
+            background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205231944057749534/R.png?ex=65d79eb7&is=65c529b7&hm=0c3bc64272d61ce2eb371940e73ff946c2f2d06ee09e5e8a56ff7ec515e60a96&=&format=webp&quality=lossless&width=1177&height=662');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+            z-index: 0;
+            animation: fadeIn 1s ease forwards; /* Apply fadeIn animation to the image container */
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Optional: Add a semi-transparent overlay */
+        }
+
+        .image-text {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-align: center;
+            padding-top: 150px; /* Adjust as needed */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0; /* Start with opacity 0 */
+                transform: translateY(20px); /* Move elements 20px down */
+            }
+            to {
+                opacity: 1; /* End with opacity 1 */
+                transform: translateY(0); /* Move elements back to their original position */
+            }
+        }
+
+        .why-container {
+            display: flex;
+            justify-content: space-between; /* Distribute items evenly along the main axis */
+            margin: 0; /* Reset margin */
+            padding: 20px;
+            background-color: #8f9f8f; /* Optional: Add background color to container */
+            border-radius: 10px; /* Rounded corners */
+            overflow: hidden; /* Hide overflow to prevent content from protruding beyond rounded corners */
+        }
+
+        .why-column {
+            flex: 1; /* Distribute the available space equally among columns */
+            padding: 10px;
+            background-color: #677c5e;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            border-radius: 10px; /* Rounded corners */
+            margin-right: 5px;
+            box-shadow: #666;
+        }
+
+        .search-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 10px 40px 10px 15px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            background-color: #fff;
+            width: 300px;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            color: #999;
+        }
+
+        footer {
+            background-color: #5a754d;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-icons a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+            margin-left: 10px;
+            padding: 10px;
+        }
+
+        .social-icons a:hover {
+            color: #ccc;
+        }
+
+        .h2 {
+            color: #000000;
+        }
+        #readMoreButton {
+    display: block;
+    margin: 20px auto; /* Adjust margin as needed */
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #4d714f; /* Button background color */
+    color: white; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3ss; /* Add transition for background color and transform */
+}
+
+#readMoreButton:hover {
+    background-color: #334934; /* Darker background color on hover */
+}
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>AXIOM</h1>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search..." oninput="filterNews()">
+
+        <i class="fas fa-search search-icon"></i>
+    </div>
+</header>
+<nav>
+    <ul>
+        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#"><i class="fas fa-globe"></i> World</a></li>
+        <li><a href="#"><i class="fas fa-gavel"></i> Politics</a></li>
+        <li><a href="#"><i class="fas fa-briefcase"></i> Business</a></li>
+        <li><a href="#"><i class="fas fa-laptop"></i> Technology</a></li>
+    </ul>
+</nav>
+<div class="image-container">
+    <!-- Optional: Add an overlay for better text readability -->
+    <div class="image-overlay"></div>
+    <div class="image-text">
+        <h2>Global News Network</h2>
+        <p>The Global News Network provides you detailed and accurate news at the tap of a few buttons, stay up to date by enabling notifications!</p>
+    </div>
+</div>
+<div class="why-container">
+    <div class="why-column">
+        <p><b>TRUTHFUL NEWS</b></p>
+    </div>
+    <div class="why-column">
+        <p><b>ACCURATE NEWS</b></p>
+    </div>
+    <div class="why-column">
+        <p><b>AXIOM NEWS</b></p>
+    </div>
+</div>
+<div class="container" id="newsContainer">
+    <a href="article1.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205506600991854652/R.png?ex=65d89e82&is=65c62982&hm=7d03d56acf4a25ba38d998e8799aa116a8cff9f03777fed703562da11fb73fd0&=&format=webp&quality=lossless&width=993&height=662')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Earthquake Strikes Ance, Prompts Evacuation Protocols</h2>
+            <p class="portal-description">An earthquake struck the coastal city of Ance, causing minor damage to infrastructure and prompting evacuation protocols to be enacted.</p>
+        </div>
+    </a>
+    
+    <a href="article2.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205505608871190558/OIP.png?ex=65d89d96&is=65c62896&hm=e488bc4f6d7f3ffb40c6ba419619ad195ecb97450418800a809cb1e7560382e9&=&format=webp&quality=lossless&width=592&height=367')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Mariko's National Football Team Surprises with Victory</h2>
+            <p class="portal-description">Mariko's national football team secured a surprise victory in an international tournament, boosting national morale and sparking celebrations across the country.</p>
+        </div>
+    </a>
+    
+    <a href="article3.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205518273832157194/R.png?ex=65d8a961&is=65c63461&hm=4fc5c4477e5ca6910508612360909e3e797712d763af00c010cac8a34aa5c0a9&=&format=webp&quality=lossless&width=995&height=662')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Severe Flooding Displaces Thousands in Northern Barba</h2>
+            <p class="portal-description">Severe flooding in Northern Barba displaced thousands of residents from low-lying areas, prompting emergency relief efforts to provide shelter and aid to affected communities.</p>
+        </div>
+    </a>
+    
+    <a href="article4.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205506020693254185/OIP.png?ex=65d89df8&is=65c628f8&hm=28bb70ec0cfaf7c91ab929bbebe8dfb5f049ec8045c2e340c8fb47f83b03794b&=&format=webp&quality=lossless&width=592&height=395')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Temartak Announces Renewable Energy Initiative</h2>
+            <p class="portal-description">Temartak's government announced a new initiative to promote renewable energy development, aiming to reduce reliance on fossil fuels and combat climate change.</p>
+        </div>
+    </a>
+    
+    <a href="article5.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205509782140882994/R.png?ex=65d8a179&is=65c62c79&hm=70dc7f995f497b61d5eaedfb0858684e47b016086d96a675643397e15711e6a0&=&format=webp&quality=lossless&width=936&height=662')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Rare Butterfly Species Discovered in Southern Barba</h2>
+            <p class="portal-description">A rare species of butterfly was discovered in the forests of Southern Barba, leading to increased conservation efforts to protect its habitat.</p>
+        </div>
+    </a>
+    
+    <a href="article6.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205517171514417192/R.png?ex=65d8a85b&is=65c6335b&hm=941de031b5ec04ac5c2e64ee0b303f91aae9a140e24167088bf378b527853869&=&format=webp&quality=lossless&width=1177&height=662')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Itala's Economy Surges with Foreign Investment</h2>
+            <p class="portal-description">Itala's economy experienced a surge in foreign investment, driven by favorable trade agreements and growing confidence in the nation's stability and growth prospects.</p>
+        </div>
+    </a>
+    
+    <a href="article7.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205517149016166420/R.png?ex=65d8a855&is=65c63355&hm=470879ab634f736a1948addbfba5ad26b567812569460fc6e10a01f168e9c94e&=&format=webp&quality=lossless&width=1022&height=662')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Rioja's Cultural Festival Boosts Tourism and Economy</h2>
+            <p class="portal-description">Rioja's cultural festival showcased traditional music, dance, and cuisine, attracting tourists from around the world and boosting the local economy.</p>
+        </div>
+    </a>
+    
+    <a href="article8.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205508774715072512/OIP.png?ex=65d8a089&is=65c62b89&hm=f626834ac91272632c499aa9215bdaff601d9692e3ed79dc27af2bc6ede8e2a1&=&format=webp&quality=lossless&width=592&height=393')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Tarab's Research Team Develops Drought-Resistant Crop</h2>
+            <p class="portal-description">Tarab's research team made a breakthrough in agricultural science, developing a drought-resistant crop variety that promises to increase food security and productivity in arid regions.</p>
+        </div>
+    </a>
+    
+    <a href="article9.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205509365554090004/R.png?ex=65d8a116&is=65c62c16&hm=7e540bf05ec78b805a28556e63aa1d4fd741c10cb8af92ee2531603e1ba5ce31&=&format=webp&quality=lossless&width=1177&height=662')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Vetar Passes Legislation for Gender Equality</h2>
+            <p class="portal-description">Vetar's parliament passed new legislation aimed at promoting gender equality and empowering women in the workforce, marking a milestone in the nation's social progress.</p>
+        </div>
+    </a>
+    
+    <a href="article10.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205516749722624060/R.png?ex=65d8a7f6&is=65c632f6&hm=99e0311e1d02d990db29ccf78e22b949e02f38334022fcf63f8e77a915933695&=&format=webp&quality=lossless&width=993&height=662')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Éclaireux Battles Major Wildfire, Evacuations Underway</h2>
+            <p class="portal-description">A major wildfire swept through Éclaireux's forested areas, prompting widespread evacuations and firefighting efforts to contain the blaze and protect homes and wildlife.</p>
+        </div>
+    </a>
+    
+    <a href="article11.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205509852596539462/OIP.png?ex=65d8a18a&is=65c62c8a&hm=53be87e07170ecdd76b711c315889740db86155af0d036c247d4e50f76515973&=&format=webp&quality=lossless&width=592&height=443')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Tropica Welcomes New Luxury Resort, Boosts Tourism</h2>
+            <p class="portal-description">Tropica's tourism industry received a boost with the opening of a new luxury resort, attracting high-spending visitors and generating revenue for local businesses.</p>
+        </div>
+    </a>
+    
+    <a href="article12.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205512890451370074/OIP.png?ex=65d8a45e&is=65c62f5e&hm=277080a87381bb768089ad64c89c58c1f175ecbb3c25ab81806e31d393e53aad&=&format=webp&quality=lossless&width=592&height=408')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Stanburg's Tech Startup Scene Flourishes</h2>
+            <p class="portal-description">Stanburg's tech startup scene flourished with the launch of several innovative companies, attracting attention from investors and entrepreneurs seeking opportunities in the burgeoning industry.</p>
+        </div>
+    </a>
+    
+    <a href="article13.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205513416135938128/OIP.png?ex=65d8a4db&is=65c62fdb&hm=aa7732222dbee5b9652b9a4afb0722cb585deb3149558560288518fe10ff19f0&=&format=webp&quality=lossless&width=592&height=395')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black; text-decoration: none;">Belvedere's National Soccer Team Advances to Finals</h2>
+            <p class="portal-description">Belvedere's national soccer team advanced to the finals of a prestigious international tournament, igniting national pride and enthusiasm for the sport.</p>
+        </div>
+    </a>
+    
+    <a href="article14.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205514572782633031/75755a93-2827-4820-84e9-d21e86b4523c_dt.png?ex=65d8a5ef&is=65c630ef&hm=1baba22431bdc8a068c6f37984bd82d282216d544e7cdb77be0c8c9fba301ff0&=&format=webp&quality=lossless&width=732&height=478')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Luxoria Announces Ambitious Urban Redevelopment Plans</h2>
+            <p class="portal-description">Luxoria's government announced ambitious plans for urban redevelopment, aiming to revitalize city centers and improve quality of life for residents through modernization projects.</p>
+        </div>
+    </a>
+    
+    <a href="article15.html" class="portal">
+        <div class="portal-image" style="background-image: url('https://media.discordapp.net/attachments/1101785167233826846/1205516468574494731/R.png?ex=65d8a7b3&is=65c632b3&hm=1d659baf87232e88d5a3122ceb0847a1f229ef30535228ca27f55c79beed89b1&=&format=webp&quality=lossless&width=1418&height=662')"></div>
+        <div class="portal-content">
+            <h2 class="portal-title" style="color: black;">Valeria's Scientists Make Breakthrough in Medical Research</h2>
+            <p class="portal-description">Valeria's scientists made a breakthrough in medical research, developing a potential treatment for a rare genetic disorder that affects children, offering hope to affected families.</p>
+        </div>
+    </a>
+
+    <!-- Repeat more .portal anchors as needed -->
+</div>
+<button id="readMoreButton" onclick="showMoreArticles()">Read More</button>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 Axiom News. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function filterNews() {
+        var input, filter, container, portals, title, i, txtValue;
+        input = document.querySelector('.search-input');
+        filter = input.value.toUpperCase();
+        container = document.getElementById('newsContainer');
+        portals = container.getElementsByClassName('portal');
+
+        for (i = 0; i < portals.length; i++) {
+            title = portals[i].getElementsByClassName('portal-title')[0];
+            txtValue = title.textContent || title.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                portals[i].style.display = "";
+            } else {
+                portals[i].style.display = "none";
+            }
+        }
+    }
+    function showMoreArticles() {
+        var hiddenArticles = document.querySelectorAll('.portal.hidden');
+
+        hiddenArticles.forEach(function(article) {
+            article.classList.remove('hidden');
+        });
+
+        // Hide the "Read More" button if there are no more hidden articles
+        if (hiddenArticles.length === 0) {
+            var readMoreButton = document.getElementById('readMoreButton');
+            readMoreButton.classList.add('clicked'); // Add the "clicked" class
+            setTimeout(function() {
+                readMoreButton.style.display = 'none'; // Hide the button after the animation
+            }, 300); // Adjust the timeout to match the duration of the animation
+        }
+    }
+
+</script>
+</body>
+</html>

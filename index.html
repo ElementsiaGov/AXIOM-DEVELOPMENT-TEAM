@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="icon" href="https://media.discordapp.net/attachments/1101785167233826846/1205444370237489162/Untitled_design_9.png?ex=65d8648d&is=65c5ef8d&hm=e6329b6795ed55fccb00a9b0bdc0db47ce22bdabf9ac3e728558e468fb09706f&=&format=webp&quality=lossless&width=80&height=80" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("https://media.discordapp.net/attachments/1101785167233826846/1205231944057749534/R.png?ex=65d79eb7&is=65c529b7&hm=0c3bc64272d61ce2eb371940e73ff946c2f2d06ee09e5e8a56ff7ec515e60a96&=&format=webp&quality=lossless&width=1177&height=662");
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            position: relative;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #488560;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #3d6e51;
+        }
+        .pass {
+            display: none;
+        }
+        .forgot-password {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .discord-icon {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            color: #bbb; /* Lighter color */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="return validateLogin()">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="pin">PIN:</label><br>
+            <input type="password" id="pin" name="pin" required><br><br>
+
+            <button type="submit">Login</button>
+        </form>
+        <p class="pass" id="forgotPasswordText">If you don't have an account name or password, or if you've forgotten your password, please check your direct messages for the information sent by Elementsia, or make a submission in the Axiom submission page.</p>
+        <p class="forgot-password" id="forgotPasswordLink">Forgot Password?</p>
+    </div>
+    <a href="https://discord.gg/3Jca45mffG" class="discord-icon"><i class="fab fa-discord fa-2x"></i></a> <!-- Font Awesome Discord icon -->
+    
+    <script>
+        var userAccounts = {
+            "Maggie": "KFC",
+            "El": "2421",
+            "DEVELOPMENT ACCOUNT 2": "5692",
+        };
+
+        var passParagraph = document.getElementById("forgotPasswordText");
+        var passLink = document.getElementById("forgotPasswordLink");
+
+        passLink.addEventListener("click", function() {
+            passParagraph.style.display = passParagraph.style.display === "none" ? "block" : "none";
+        });
+
+        function validateLogin() {
+            var username = document.getElementById("username").value;
+            var pin = document.getElementById("pin").value;
+
+            if (userAccounts.hasOwnProperty(username)) {
+                if (userAccounts[username] === pin) {
+                    window.location.href = "news.html";
+                    return false;
+                } else {
+                    alert("Incorrect PIN. Please try again.");
+                    return false;
+                }
+            } else {
+                alert("Username not found.");
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
