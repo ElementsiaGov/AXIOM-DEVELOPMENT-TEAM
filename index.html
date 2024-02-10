@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1101785167233826846/1205444370237489162/Untitled_design_9.png?ex=65d8648d&is=65c5ef8d&hm=e6329b6795ed55fccb00a9b0bdc0db47ce22bdabf9ac3e728558e468fb09706f&=&format=webp&quality=lossless&width=80&height=80" type="image/x-icon">
+    <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1101785167233826846/1205816432965853214/AXIOM.png?ex=65d9bf10&is=65c74a10&hm=c34a43b36fa44623dee26b465986a16fd378c5ff0314c546379a957fed2367b2&=&format=webp&quality=lossless&width=662&height=662">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
     <style>
         body {
@@ -21,14 +21,17 @@
             position: relative;
         }
         .login-container {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    margin: 0 10px; /* Add margin left and right */
-    position: relative;
-}
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin: 0 10px; /* Add margin left and right */
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: floatUp 0.5s forwards;
+        }
         h2 {
             text-align: center;
         }
@@ -102,6 +105,18 @@
         }
         .discord-icon:hover {
             transform: scale(1.2);
+        }
+
+        /* Keyframes */
+        @keyframes floatUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
