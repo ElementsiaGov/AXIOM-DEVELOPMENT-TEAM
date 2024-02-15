@@ -47,6 +47,7 @@
             border: 1px solid #ccc;
             border-radius: 50px;
             box-sizing: border-box;
+                animation: fadeIn 0.5s ease forwards;
         }
         button[type="submit"] {
             width: 100%;
@@ -73,6 +74,10 @@
             cursor: pointer;
             transition: ease-in-out 0.3s;
         }
+        input:focus {
+    outline: none;
+    border-color: #35633d;
+  }
         .forgot-password:hover {
             padding: 5px;
         }
@@ -123,7 +128,8 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <p><b>THIS IS THE EARLY ACCESS, BUGS AND UNCOMPLETED SECTIONS ARE TO BE EXPECTED</b></p>
+        <p>Hi there! This webpage has been blocked for all Aros Elyuim Members by Elementsia, <a href="why.html" id="learn-more-link">learn why this happened</a></p>
+        <p>This webpage is currently under development.</p>
         <form id="loginForm" onsubmit="return validateLogin()">
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username" required><br><br>
@@ -150,6 +156,7 @@
             "El": "2421",
             "EARLY ACCESS ACCOUNT 03": "5328",
             "EARLY ACCESS ACCOUNT 02": "7972",
+            "EARLY ACCESS ACCOUNT (PvdM) 04": "3754",
         };
 
         var passParagraph = document.getElementById("forgotPasswordText");
